@@ -132,27 +132,6 @@ public class WarRevisionMojo extends AbstractMojo {
 		return result;
 		
 	}
-
-	
-	public static void main(String[] args) throws Exception {
-		String revisionNumber = System.currentTimeMillis() + "";
-		WarRevisionMojo mojo = new WarRevisionMojo();
-		List<File> files = mojo.getFilesToProcess(new File("/Users/sodarfish/dev/workspace/bxtx_manage/src/main/webapp"));
-		for(File file : files) {
-			String html = IOUtil.readText(file, "utf-8");
-			Pattern p = Pattern.compile("<script\\s+[^>]+\"([^\"]+\\.js)\"[^>]*>");
-			html = scanAndAppendRevision(p,html, revisionNumber );
-			p = Pattern.compile("<script\\s+[^>]+'([^\"]+\\.js)\'[^>]*>");
-			html = scanAndAppendRevision(p,html, revisionNumber );
-			p = Pattern.compile("<link\\s+[^>]+\"([^\"]+\\.css)\"[^>]*>");
-			html = scanAndAppendRevision(p,html, revisionNumber );
-			p = Pattern.compile("<link\\s+[^>]+'([^\"]+\\.css)\'[^>]*>");
-			html = scanAndAppendRevision(p,html, revisionNumber );
-			
-			System.out.println(html);
-		}
-		
-	}
 	
 	private static String scanAndAppendRevision(Pattern p, String html, String revisionNumber) {
 		Matcher m = p.matcher(html);
